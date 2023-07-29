@@ -1,12 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"io/ioutil"
+	"strings"
+)
 
 // Initializinga type "deck"
 // this will be the basic type
 // for the deck of cards
 type deck []string
-
 
 func newDeck() deck {
     cards := deck{}
@@ -24,22 +26,15 @@ func newDeck() deck {
     return cards
 }
 
-func deal(d deck, handSize int) (deck, deck) {
-    
-    return d[:handSize], d[handSize:] // == d[:3]
+// receiver that turns deck -> string
+func (d deck) toString() string {
+    return strings.Join([]string(d), ",") 
+}
+
+// receiver to write to a file 
+func (d deck) saveToFile(filename string) error {
+    return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
 
-func (d deck) shuffle() deck {
-    // 
-    shuffledDeck := d
 
-    return shuffledDeck
-}
-
-// "d" is a convention, but very similar to "this" or "self"
-func (d deck) print() {
-    for i, card := range d {
-        fmt.Println(i, card)
-    }
-}

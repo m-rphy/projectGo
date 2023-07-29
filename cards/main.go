@@ -5,8 +5,6 @@ import "fmt"
 func main() {
 
     cards :=  newDeck()
-    
-    // returns two values of type deck
-    hand, remainingDeck := deal(cards, 5)
-    fmt.Println(hand, remainingDeck)
+    fmt.Println(cards.toString())
+    cards.saveToFile("myCards")
 }
