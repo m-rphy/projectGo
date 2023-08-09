@@ -2,51 +2,51 @@ package main
 
 import "fmt"
 
-func processComb(comb []int, cap float64) float64 {
-    total := 0.0
 
-    for _, val := range comb {
-        if val == 1 {
-            total += cap
+// Function to generate all possible combinations of capacitors
+func generateCombinations(n int, arr []int, i int, currComb []int) {
+
+    // basecase:
+    if i == n {
+        *arr = append(*arr, currComb)
+        return 
+    }
+    // 0 is for series
+    currComb = append(currComb, 0)
+    generateCombinations(n, , i+1, currComb)
+
+    // 1 is for parallel
+    currComb = append(currComb, 1)
+    generateCombinations(n, arr, i+1, currComb)
+
+}
+
+func processComb(arr []int, c float64) float64 {
+    
+    temp_s := 0.0
+    temp_p := 0.0
+
+    for _, val := range arr {
+        
+        if val == 0 {
+            temp_s += 1.0/c
         } else {
-            total += 1/cap
+            temp_p += c
         }
     }
+
+    total := 1.0/ temp_s + temp_p
     return total
 }
 
-// Function to generate all possible combinations of capacitors
-func generateCombinations(n int, arr []int, i int) []int {
-
-    comb := arr
-    // basecase:
-    if i == n {
-        return comb
-    }
-    
-    comb[i] = 0
-    comb = generateCombinations(n, comb, i+1)
-
-
-    comb[i] = 1
-    comb = generateCombinations(n, comb, i+1)
-    
-    return comb
-}
 
 func main() {
-	// Define the capacitance of each individual capacitor
-	cap := 60.0 // Replace this with the capacitance value in Farads
 
-	n := 3 // Replace this with the number of identical capacitors
-
+    n := 3
     var arr []int
+
     comb := generateCombinations(n, arr, 0)
+    result := processComb(comb, 60.0)
 
-    for i := 0; i<=n; i++ {
-        c := processComb(comb, cap)
-        fmt.Print(c)
-
-    }
-
+    fmt.Println(result)
 }
