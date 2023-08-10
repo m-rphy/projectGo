@@ -9,7 +9,7 @@ import (
 // RendersTemplate renders templates useing html/template
 func RenderTemplate(w http.ResponseWriter, gtpl string) {
 
-	parsedTemplate, err := template.ParseFiles("./templates/" + gtpl)
+	parsedTemplate, err := template.ParseFiles("./templates/"+gtpl, "./templates/base.layout.gtpl")
 	if err != nil {
 		fmt.Println("error parsing template:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
